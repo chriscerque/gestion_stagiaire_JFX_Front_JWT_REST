@@ -81,7 +81,7 @@ public abstract class AbstractController {
 
 
 	@Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED)
-	protected static MyUser userEnCours;
+	public static MyUser userEnCours;
 
 	/**
 	 * Permet de charger une page fxml dans une scene en spécifiant le controller.

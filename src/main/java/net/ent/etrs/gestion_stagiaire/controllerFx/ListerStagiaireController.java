@@ -22,6 +22,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponents;
@@ -32,9 +34,10 @@ import java.net.URI;
 import java.util.*;
 
 //@Component
-public class ListerStagiaireController {
+public class ListerStagiaireController extends AbstractController {
 
     String url = "http://127.0.0.1:8080/Stagiaires";
+    private static final String URL_LOGIN = "http://localhost:8080/authenticate";
 
     @FXML
     private Parent barreMenu;
@@ -77,11 +80,39 @@ public class ListerStagiaireController {
 //        System.out.println("uriComponents.toString()" + uriComponents.toString());
 //        uriComponents.getQueryParams().forEach((a,b)-> System.out.printf("a : %s | b : %s", a, b));
 
-        RestTemplate restTemplate = new RestTemplate();
+//        RestTemplate restTemplate = new RestTemplate();
 //        URI url = new URI("http://localhost:" + port + "/foo?param=bar");
 //        RequestEntity<Void> request = RequestEntity.post(url).build();
 //        ResponseEntity<Void> response = new RestTemplate().exchange(request, Void.class);
 //        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+
+        // Request Header
+        HttpHeaders headers = new HttpHeaders();
+
+        // Request Body
+        MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
+        parametersMap.add("username", super.userEnCours.getUsername());
+        parametersMap.add("password", super.userEnCours.getPassword());
+
+        // Request Entity
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parametersMap, headers);
+
+        // RestTemplate
+        RestTemplate restTemplate = new RestTemplate();
+
+        // POST Login
+        ResponseEntity<String> response = restTemplate.exchange(URL_LOGIN, //
+                HttpMethod.POST, requestEntity, String.class);
+
+
+        HttpHeaders responseHeaders = response.getHeaders();
+
+        List<String> list = responseHeaders.get("Authorization");
+//        return list == null || list.isEmpty() ? null : list.get(0);
+        String authorizationString = list.get(0);
+        System.out.println("Authorization String=" + authorizationString);
+
 
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
