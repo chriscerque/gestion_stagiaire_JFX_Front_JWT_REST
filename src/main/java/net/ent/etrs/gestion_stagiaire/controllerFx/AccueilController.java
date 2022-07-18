@@ -37,7 +37,7 @@ public class AccueilController extends AbstractController{
     }
 
     private void renseignerInfoClient() {
-        this.lblBonjour.setText(SecurityContextHolder.getContext().getAuthentication().getName());
+//        this.lblBonjour.setText(SecurityContextHolder.getContext().getAuthentication().getName());
 //        this.lblBonjour.setText(String.format("%s", super.getUserEnCours().getUsername()));
     }
 

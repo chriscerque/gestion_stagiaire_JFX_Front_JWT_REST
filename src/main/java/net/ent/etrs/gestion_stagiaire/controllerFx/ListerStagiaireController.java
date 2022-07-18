@@ -36,8 +36,8 @@ import java.util.*;
 //@Component
 public class ListerStagiaireController extends AbstractController {
 
-    String url = "http://127.0.0.1:8080/Stagiaires";
-    private static final String URL_LOGIN = "http://localhost:8080/authenticate";
+    private static final String url = "http://127.0.0.1:8080/Stagiaires";
+
 
     @FXML
     private Parent barreMenu;
@@ -80,39 +80,45 @@ public class ListerStagiaireController extends AbstractController {
 //        System.out.println("uriComponents.toString()" + uriComponents.toString());
 //        uriComponents.getQueryParams().forEach((a,b)-> System.out.printf("a : %s | b : %s", a, b));
 
-//        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
 //        URI url = new URI("http://localhost:" + port + "/foo?param=bar");
 //        RequestEntity<Void> request = RequestEntity.post(url).build();
 //        ResponseEntity<Void> response = new RestTemplate().exchange(request, Void.class);
 //        assertEquals(HttpStatus.OK, response.getStatusCode());
 
 
+//        // Request Header
+//        HttpHeaders headers = new HttpHeaders();
+//
+//        // Request Body
+//        MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
+//        parametersMap.add("username", super.userEnCours.getUsername());
+//        parametersMap.add("password", super.userEnCours.getPassword());
+//
+//        // Request Entity
+//        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parametersMap, headers);
+//
+//        // RestTemplate
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        // POST Login
+//        ResponseEntity<String> response = restTemplate.exchange(URL_LOGIN, //
+//                HttpMethod.POST, requestEntity, String.class);
+//
+//
+//        HttpHeaders responseHeaders = response.getHeaders();
+//
+//        List<String> list = responseHeaders.get("Authorization");
+////        return list == null || list.isEmpty() ? null : list.get(0);
+//        String authorizationString = list.get(0);
+//        System.out.println("Authorization String=" + authorizationString);
+
+
+
         // Request Header
         HttpHeaders headers = new HttpHeaders();
-
-        // Request Body
-        MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
-        parametersMap.add("username", super.userEnCours.getUsername());
-        parametersMap.add("password", super.userEnCours.getPassword());
-
-        // Request Entity
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parametersMap, headers);
-
-        // RestTemplate
-        RestTemplate restTemplate = new RestTemplate();
-
-        // POST Login
-        ResponseEntity<String> response = restTemplate.exchange(URL_LOGIN, //
-                HttpMethod.POST, requestEntity, String.class);
-
-
-        HttpHeaders responseHeaders = response.getHeaders();
-
-        List<String> list = responseHeaders.get("Authorization");
-//        return list == null || list.isEmpty() ? null : list.get(0);
-        String authorizationString = list.get(0);
-        System.out.println("Authorization String=" + authorizationString);
-
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set(HttpHeaders.AUTHORIZATION, "Bearer "+);
 
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
