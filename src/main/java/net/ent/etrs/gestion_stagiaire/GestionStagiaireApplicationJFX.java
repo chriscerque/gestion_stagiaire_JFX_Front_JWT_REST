@@ -7,25 +7,22 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-
 @SpringBootApplication
-public class GestionStagiaireApplicationJFX  /*extends Application*/{
+public class GestionStagiaireApplicationJFX  /*extends Application*/ {
 
 //	@Autowired
 //	FxmlControllerFactory fxmlControllerFactory;
 
-	@Autowired
-	private ConfigurableApplicationContext springContext;
+    @Autowired
+    private ConfigurableApplicationContext springContext;
 
-	private Parent root;
+    private Parent root;
 
 //	@PersistenceContext
 //	private static EntityManager em1;
 
-	public static void main(String[] args) {
-		try {
+    public static void main(String[] args) {
+        try {
 
 //			Properties pros = System.getProperties();
 //			pros.list(System.out);
@@ -36,19 +33,19 @@ public class GestionStagiaireApplicationJFX  /*extends Application*/{
 
 
 //			EntityManager em = Persistence.createEntityManagerFactory("PU_CREATE").createEntityManager();
-		EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
-//		System.out.println(">>>>>>>>>>>>>>>>>>> em1 : " + em1);
-			System.out.println(">>>>>>>>>>>>>>>>>>> em : " + em);
-			Application.launch(ChartApplication.class, args);
+//		EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+////		System.out.println(">>>>>>>>>>>>>>>>>>> em1 : " + em1);
+//			System.out.println(">>>>>>>>>>>>>>>>>>> em : " + em);
+            Application.launch(ChartApplication.class, args);
 //			Application.launch(GestionStagiaireApplicationJFX.class, args);
 //			launch(args);
-			SpringApplication.run(GestionStagiaireApplicationJFX.class, args);
+            SpringApplication.run(GestionStagiaireApplicationJFX.class, args);
 
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
 //	@Override
 //	public void init() throws Exception {
@@ -56,7 +53,7 @@ public class GestionStagiaireApplicationJFX  /*extends Application*/{
 //		springContext.getAutowireCapableBeanFactory().autowireBean(this);
 //	}
 
-	//	@Override
+    //	@Override
 //	public void init() throws Exception {
 //		System.out.println(">>>>>>>>>>>>>>GestionStagiaireApplicationJFX/init");
 //		springContext = new SpringApplicationBuilder(GestionStagiaireApplicationJFX.class).run();

@@ -1,4 +1,4 @@
-package net.ent.etrs.gestion_stagiaire.controller;
+package net.ent.etrs.gestion_stagiaire.service;
 
 import net.ent.etrs.gestion_stagiaire.model.entities.MyUser;
 import org.springframework.stereotype.Component;

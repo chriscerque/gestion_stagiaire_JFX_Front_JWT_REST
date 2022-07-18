@@ -3,10 +3,6 @@ package net.ent.etrs.gestion_stagiaire.controllerFx;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import net.ent.etrs.gestion_stagiaire.secu.AppAuthProvider;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 
 //@Component
 public class AccueilController extends AbstractController{
@@ -37,7 +33,7 @@ public class AccueilController extends AbstractController{
     }
 
     private void renseignerInfoClient() {
-        this.lblBonjour.setText(SecurityContextHolder.getContext().getAuthentication().getName());
+//        this.lblBonjour.setText(SecurityContextHolder.getContext().getAuthentication().getName());
 //        this.lblBonjour.setText(String.format("%s", super.getUserEnCours().getUsername()));
     }
 

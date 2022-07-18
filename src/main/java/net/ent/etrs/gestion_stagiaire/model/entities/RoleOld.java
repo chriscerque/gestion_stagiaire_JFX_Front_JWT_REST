@@ -1,8 +1,5 @@
 package net.ent.etrs.gestion_stagiaire.model.entities;
 
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 //@Entity

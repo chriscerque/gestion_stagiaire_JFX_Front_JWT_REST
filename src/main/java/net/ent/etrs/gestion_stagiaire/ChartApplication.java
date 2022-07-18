@@ -7,20 +7,19 @@ import javafx.stage.Stage;
 import net.ent.etrs.gestion_stagiaire.commonUtils.JfxUtils.FxmlControllerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 //@SpringBootApplication
 @Component
 public class ChartApplication extends Application {
-    
+
     @Autowired
     FxmlControllerFactory fxmlControllerFactory;
 
     @Autowired
     FXMLLoader fxmlLoader;
-    
+
     private ConfigurableApplicationContext configurableApplicationContext;
 
 //    private ApplicationContext applicationContext;
@@ -62,6 +61,7 @@ public class ChartApplication extends Application {
 //        }
 
     }
+
     @Override
     public void start(Stage stage) {
 
@@ -102,6 +102,7 @@ public class ChartApplication extends Application {
 //        stage.show();
 
     }
+
     @Override
     public void stop() {
         System.out.println("SOrtie de l'application");

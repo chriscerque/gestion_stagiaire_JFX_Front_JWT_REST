@@ -3,23 +3,19 @@ package net.ent.etrs.gestion_stagiaire.controllerFx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import net.ent.etrs.gestion_stagiaire.commonUtils.JfxUtils.FxmlControllerFactory;
 import net.ent.etrs.gestion_stagiaire.model.entities.EntitiesFactory;
 import net.ent.etrs.gestion_stagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestion_stagiaire.model.entities.references.Appartenance;
 import net.ent.etrs.gestion_stagiaire.model.entities.references.Grade;
-import net.ent.etrs.gestion_stagiaire.model.facade.FacadeFactory;
 import net.ent.etrs.gestion_stagiaire.model.facade.IGradeFacade;
 import net.ent.etrs.gestion_stagiaire.model.facade.IStagiaireFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 //@Component
-public class GererStagiaireController /*extends AbstractController*/{
+public class GererStagiaireController /*extends AbstractController*/ {
 
     @Autowired
     IStagiaireFacade stagiaireFacade;
@@ -84,7 +80,7 @@ public class GererStagiaireController /*extends AbstractController*/{
 //    }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         chargerCbxGrade();
         chargerCbxAppartenance();
 
@@ -104,7 +100,7 @@ public class GererStagiaireController /*extends AbstractController*/{
 
 
     @FXML
-    public void valider(){
+    public void valider() {
         Stagiaire stagiaire = EntitiesFactory.fabriquerStagiaire(this.tfNom.getText(), this.tfPrenom.getText(), this.cbxGrade.getValue());
 //        FacadeFactory.getStagaireFacade().saveStagiaire(stagiaire);
         stagiaire.setAppartenance(this.cbxAppartenance.getValue());

@@ -1,45 +1,17 @@
 package net.ent.etrs.gestion_stagiaire.controllerFx;
 
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import net.ent.etrs.gestion_stagiaire.commonUtils.JfxUtils.FxmlControllerFactory;
-import net.ent.etrs.gestion_stagiaire.model.entities.MyUser;
-import net.ent.etrs.gestion_stagiaire.model.entities.references.Role;
-import net.ent.etrs.gestion_stagiaire.model.facade.IGradeFacade;
-import net.ent.etrs.gestion_stagiaire.model.facade.IStagiaireFacade;
-import net.ent.etrs.gestion_stagiaire.secu.AppAuthProvider;
+import net.ent.etrs.gestion_stagiaire.service.ConnexionService;
+import net.ent.etrs.gestion_stagiaire.service.IConnexionService;
 import net.ent.etrs.gestion_stagiaire.view.Screens;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.BeanDefinitionDsl;
-import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserCache;
-import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 //@Component
 //@Controller
 public class ConnexionController extends AbstractController {
-
-    public static final String URL_LOGIN = "http://localhost:8080/authenticate";
 
 
     @FXML
@@ -51,13 +23,16 @@ public class ConnexionController extends AbstractController {
     @FXML
     private Button btnConnexion;
 
+    private IConnexionService connexionService;
 
-////    @Autowired
-//    public ConnexionController() {
-//        super();
-//        System.out.println("ConnexionController/controller");
-////        this.initialize();
-//    }
+
+    //    @Autowired
+    public ConnexionController() {
+        super();
+        System.out.println("ConnexionController/controller");
+        this.connexionService = new ConnexionService();
+//        this.initialize();
+    }
 
 //    @Autowired
 //    public ConnexionController(FxmlControllerFactory fxmlControllerFactory, IGradeFacade gradeFacade, IStagiaireFacade stagiaireFacade, FXMLLoader loader) {
@@ -75,21 +50,21 @@ public class ConnexionController extends AbstractController {
 
 
     @FXML
-    public void initialize(){
+    public void initialize() {
 //        System.out.println("ConnexionController/initialize");
         this.btnConnexion.setDisable(true);
-        this.tfLogin.textProperty().addListener((obs,oldValue,newValue)->gererBtnConnexion(newValue));
-        this.tfPwd.textProperty().addListener((obs,oldValue,newValue)->gererBtnConnexion(newValue));
+        this.tfLogin.textProperty().addListener((obs, oldValue, newValue) -> gererBtnConnexion(newValue));
+        this.tfPwd.textProperty().addListener((obs, oldValue, newValue) -> gererBtnConnexion(newValue));
         //TODO a retirer
-        this.tfLogin.setText("admin");
+        this.tfLogin.setText("ADMIN");
         this.tfPwd.setText("ADMIN");
 
     }
 
     private void gererBtnConnexion(String newValue) {
 //        System.out.println("<<<<<<< ConnexionController/gererBtnConnexion");
-        this.btnConnexion.onKeyPressedProperty().addListener((obs, oldV, newV)->connexion());
-        if(this.tfLogin.getText().trim().isEmpty() || this.tfPwd.getText().trim().isEmpty()){
+        this.btnConnexion.onKeyPressedProperty().addListener((obs, oldV, newV) -> connexion());
+        if (this.tfLogin.getText().trim().isEmpty() || this.tfPwd.getText().trim().isEmpty()) {
             this.btnConnexion.setDisable(true);
         } else {
             this.btnConnexion.setDisable(false);
@@ -98,13 +73,12 @@ public class ConnexionController extends AbstractController {
     }
 
     @FXML
-    public void connexion(){
+    public void connexion() {
         System.out.println("<<<<<<< ConnexionController/connexion");
 //        try {
 //        super.setUserEnCours(User.withDefaultPasswordEncoder().username(this.tfLogin.getText()).password("password").roles("USER").build());
 
 //        super.setUserEnCours(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build());
-
 
 
 //        UsernamePasswordAuthenticationToken authReq
@@ -124,43 +98,9 @@ public class ConnexionController extends AbstractController {
 //        System.out.println("####### userName : " + super.getUserEnCours().getUsername());
 //        System.out.println("####### pwd : " + super.getUserEnCours().getPassword());
 
+        this.connexionService.connexion(this.tfLogin.getText(), this.tfPwd.getText());
 
-
-        // Request Header
-        HttpHeaders headers = new HttpHeaders();
-
-        // Request Body
-        MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
-        parametersMap.add("username", this.tfLogin.getText());
-        parametersMap.add("password", this.tfPwd.getText());
-
-        // Request Entity
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parametersMap, headers);
-
-        // RestTemplate
-        RestTemplate restTemplate = new RestTemplate();
-
-        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-        MappingJackson2XmlHttpMessageConverter converter = new MappingJackson2XmlHttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
-        messageConverters.add(converter);
-
-        restTemplate.setMessageConverters(messageConverters);
-
-        // POST Login
-        ResponseEntity<String> response = restTemplate.exchange(URL_LOGIN, //
-                HttpMethod.POST, requestEntity, String.class);
-
-
-        HttpHeaders responseHeaders = response.getHeaders();
-
-        List<String> list = responseHeaders.get("Authorization");
-//        return list == null || list.isEmpty() ? null : list.get(0);
-        String authorizationString = list.get(0);
-        System.out.println("Authorization String=" + authorizationString);
-
-
-            chargerScene(this.btnConnexion.getScene(), Screens.ACCUEIL, null);
+        chargerScene(this.btnConnexion.getScene(), Screens.ACCUEIL, null);
 //        } catch (BusinessException e) {
 //            AlerteUtils.afficherExceptionDansAlerte(e, Alert.AlertType.WARNING);
 //        }
