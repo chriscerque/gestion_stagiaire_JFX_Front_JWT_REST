@@ -2,19 +2,25 @@ package net.ent.etrs.gestion_stagiaire.service;
 
 import net.ent.etrs.gestion_stagiaire.model.JwtRequest;
 import net.ent.etrs.gestion_stagiaire.model.entities.MyUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
 
+@Component
 public class ConnexionService implements IConnexionService {
 
     private static final String URL_LOGIN = "http://localhost:8080/authenticate";
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Override
     public MyUser connexion(final String login, final String password) {
@@ -85,7 +91,6 @@ public class ConnexionService implements IConnexionService {
         System.out.println("Authorization String=" + token);
 
 
-        JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
 //        jwtTokenUtil.getUsernameFromToken(authorizationString);
         System.out.println(jwtTokenUtil.getAllClaimsFromToken(token));
 

@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import net.ent.etrs.gestion_stagiaire.service.ConnexionService;
 import net.ent.etrs.gestion_stagiaire.service.IConnexionService;
 import net.ent.etrs.gestion_stagiaire.view.Screens;
+import org.springframework.beans.factory.annotation.Autowired;
 
 //@Component
 //@Controller
@@ -23,6 +24,7 @@ public class ConnexionController extends AbstractController {
     @FXML
     private Button btnConnexion;
 
+    @Autowired
     private IConnexionService connexionService;
 
 
