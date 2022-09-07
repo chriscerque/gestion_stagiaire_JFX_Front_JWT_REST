@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @ToString(exclude = "noteList")
@@ -70,7 +71,7 @@ public class Stagiaire extends AbstractEntity {
     @Setter
     private Integer numBadgeAcces;
 
-    private Set<Note> noteList;
+    private Set<Note> noteList = new HashSet<>();
 
     public void ajouterNote(@Valid Note note) {
         this.noteList.add(note);

@@ -89,7 +89,7 @@ public class ConnexionService implements IConnexionService {
 //        return list == null || list.isEmpty() ? null : list.get(0);
         String token = list.get(0);
         System.out.println("Authorization String=" + token);
-
+JwtTokenUtil.setToken(token);
 
 //        jwtTokenUtil.getUsernameFromToken(authorizationString);
         System.out.println(jwtTokenUtil.getAllClaimsFromToken(token));
