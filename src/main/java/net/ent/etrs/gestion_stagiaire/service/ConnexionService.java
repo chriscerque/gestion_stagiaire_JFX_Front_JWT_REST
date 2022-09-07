@@ -95,7 +95,8 @@ public class ConnexionService implements IConnexionService {
         System.out.println(jwtTokenUtil.getAllClaimsFromToken(token));
 
         MyUser myUser = new MyUser();
-
+        myUser.setUsername(jwtTokenUtil.getUsernameFromToken(token));
+        myUser.setToken(token);
         return myUser;
     }
 

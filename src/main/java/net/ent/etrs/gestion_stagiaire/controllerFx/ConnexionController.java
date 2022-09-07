@@ -100,7 +100,7 @@ public class ConnexionController extends AbstractController {
 //        System.out.println("####### userName : " + super.getUserEnCours().getUsername());
 //        System.out.println("####### pwd : " + super.getUserEnCours().getPassword());
 
-        this.connexionService.connexion(this.tfLogin.getText(), this.tfPwd.getText());
+        super.setUserEnCours(this.connexionService.connexion(this.tfLogin.getText(), this.tfPwd.getText()));
 
         chargerScene(this.btnConnexion.getScene(), Screens.ACCUEIL, null);
 //        } catch (BusinessException e) {

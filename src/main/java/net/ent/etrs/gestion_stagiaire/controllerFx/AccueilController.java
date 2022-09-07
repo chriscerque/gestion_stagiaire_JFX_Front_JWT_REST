@@ -5,11 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 
 //@Component
-public class AccueilController extends AbstractController{
+public class AccueilController extends AbstractController {
 
     @FXML
     private Parent barreMenu;
-//    @FXML
+    //    @FXML
 //    private TableView<Compte> tvComptesClient;
 //    @FXML
 //    private TableColumn<Compte, String> tcLibelle;
@@ -24,7 +24,7 @@ public class AccueilController extends AbstractController{
 //    private SortedList<Compte> sortedLstComptesClient = new SortedList<>(filteredListComptesClient);
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         renseignerInfoClient();
 //        chargerLstAuteur();
 //        chargerTvComptesClient();
@@ -34,7 +34,7 @@ public class AccueilController extends AbstractController{
 
     private void renseignerInfoClient() {
 //        this.lblBonjour.setText(SecurityContextHolder.getContext().getAuthentication().getName());
-//        this.lblBonjour.setText(String.format("%s", super.getUserEnCours().getUsername()));
+        this.lblBonjour.setText(String.format("%s", super.getUserEnCours().getUsername()));
     }
 
 //    private void chargerLstAuteur() {

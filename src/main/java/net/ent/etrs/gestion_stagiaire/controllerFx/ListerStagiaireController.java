@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import net.ent.etrs.gestion_stagiaire.model.JwtRequest;
 import net.ent.etrs.gestion_stagiaire.model.entities.Stage;
 import net.ent.etrs.gestion_stagiaire.model.entities.Stagiaire;
 import net.ent.etrs.gestion_stagiaire.model.entities.references.Appartenance;
@@ -16,10 +17,12 @@ import net.ent.etrs.gestion_stagiaire.view.converter.AppartenanceConverter;
 import net.ent.etrs.gestion_stagiaire.view.converter.GradeConverter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -101,13 +104,19 @@ public class ListerStagiaireController extends AbstractController {
 ////        return list == null || list.isEmpty() ? null : list.get(0);
 //        String authorizationString = list.get(0);
 //        System.out.println("Authorization String=" + authorizationString);
-
-
-        // Request Header
+// Request Header
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + "");
+        // Request Body
+        RequestEntity<JwtRequest> requestEntity = RequestEntity.post(URI.create(url))
+                .accept(MediaType.APPLICATION_JSON)
+                .headers(headers).body();
 
+        // RestTemplate
+        RestTemplate restTemplate = new RestTemplate();
+
+        headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + AbstractController.getUserEnCours().getToken());
+        System.out.println(">>>>>>> token : " + AbstractController.getUserEnCours().getToken());
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));

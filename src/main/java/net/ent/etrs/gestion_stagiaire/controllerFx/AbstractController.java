@@ -26,10 +26,11 @@ public abstract class AbstractController {
     @Getter(AccessLevel.PROTECTED)
     @Setter(AccessLevel.PROTECTED)
     public static MyUser userEnCours;
+
     @Autowired
     protected IGradeFacade gradeFacade;
 
-//	@Autowired
+    //	@Autowired
 //	AuthenticationProvider authenticationProvider;
     @Autowired
     protected IStagiaireFacade stagiaireFacade;
