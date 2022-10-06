@@ -148,8 +148,6 @@ public class ListerStagiaireController extends AbstractController {
         ResponseEntity<List<Stagiaire>> resEntity = restTemplate.exchange(URI.create(url), HttpMethod.GET, reqEntity, typeRef);
 
 
-        //
-
         System.out.println(resEntity.getStatusCodeValue());
         for (Stagiaire b : resEntity.getBody()) {
             System.out.println(b);
