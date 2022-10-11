@@ -89,14 +89,16 @@ public class ConnexionService implements IConnexionService {
 //        return list == null || list.isEmpty() ? null : list.get(0);
         String token = list.get(0);
         System.out.println("Authorization String=" + token);
-JwtTokenUtil.setToken(token);
+        System.out.println("token.split(\"Bearer\")[1] " + token.split("Bearer ")[1]);
+
+JwtTokenUtil.setToken(token.split("Bearer ")[1].trim());
 
 //        jwtTokenUtil.getUsernameFromToken(authorizationString);
-        System.out.println(jwtTokenUtil.getAllClaimsFromToken(token));
+        System.out.println(jwtTokenUtil.getAllClaimsFromToken(JwtTokenUtil.getToken()));
 
         MyUser myUser = new MyUser();
-        myUser.setUsername(jwtTokenUtil.getUsernameFromToken(token));
-        myUser.setToken(token);
+        myUser.setUsername(jwtTokenUtil.getUsernameFromToken(JwtTokenUtil.getToken()));
+        myUser.setToken(JwtTokenUtil.getToken());
         return myUser;
     }
 

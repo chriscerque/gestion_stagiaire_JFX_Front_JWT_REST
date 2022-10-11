@@ -41,6 +41,9 @@ public class GestionStagiaireApplicationJFX  /*extends Application*/ {
 //			launch(args);
             SpringApplication.run(GestionStagiaireApplicationJFX.class, args);
 
+            System.out.println("GestionStagiaireApplication fin§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§");
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

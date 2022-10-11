@@ -14,6 +14,7 @@ import net.ent.etrs.gestion_stagiaire.model.facade.IStagiaireFacade;
 import net.ent.etrs.gestion_stagiaire.view.AlerteUtils;
 import net.ent.etrs.gestion_stagiaire.view.Cview;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -26,16 +27,16 @@ public abstract class AbstractController {
     @Getter(AccessLevel.PROTECTED)
     @Setter(AccessLevel.PROTECTED)
     public static MyUser userEnCours;
-
     @Autowired
     protected IGradeFacade gradeFacade;
-
     //	@Autowired
 //	AuthenticationProvider authenticationProvider;
     @Autowired
     protected IStagiaireFacade stagiaireFacade;
     @Autowired
     FXMLLoader loader;
+    @Autowired
+    private ConfigurableApplicationContext springContext;
     private AbstractController abstractController;
     @Autowired
     private FxmlControllerFactory fxmlControllerFactory;
@@ -108,7 +109,9 @@ public abstract class AbstractController {
 
         if (sortie) {
             System.out.println("Sortie de l'application...");
+            springContext.close();
             Platform.exit();
+
         }
     }
 
