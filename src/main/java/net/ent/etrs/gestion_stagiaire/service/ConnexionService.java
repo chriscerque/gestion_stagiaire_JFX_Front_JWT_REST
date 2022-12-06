@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class ConnexionService implements IConnexionService {
 
-    private static final String URL_LOGIN = "http://localhost:8080/authenticate";
+    private static final String URL_LOGIN = "http://localhost:8081/api/auth/authenticate";
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
